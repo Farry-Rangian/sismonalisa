@@ -13,7 +13,7 @@ class AdminController extends Controller
         // echo "Selamat Datang di Halaman Admin";
         // echo "<h1>" . Auth::user()->name."</h1>";
         // echo "<a href='logout'>Logout >></a>";
-        return view('index');
+        return view('pages.dashboard');
     }
 
     function user()
@@ -21,6 +21,6 @@ class AdminController extends Controller
         // echo "Selamat Datang Operator Desa";
         // echo "<h1>" . Auth::user()->name."</h1>";
         // echo "<a href='logout'>Logout >></a>";
-        return view('index');
+        return view('pages.dashboard');
     }
 }
