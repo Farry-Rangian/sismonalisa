@@ -1,7 +1,7 @@
 @extends('index')
 
 @section('content')
-<div class="card card-frame">
+<div class="card shadow-lg mx-4 ">
     <div class="card-body">
         <form action="{{ route('anggarans.store') }}" method="POST" enctype="multipart/form-data">
             @csrf

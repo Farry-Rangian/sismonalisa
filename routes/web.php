@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\SesiController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,7 @@ Route::get('/home', function(){
 Route::middleware(['auth'])->group(function(){
     Route::get('/admin', [AdminController::class, 'index'])->middleware('userAkses:admin');
     Route::resource('/anggarans', \App\Http\Controllers\AnggaranController::class);
+    Route::resource('/programs', \App\Http\Controllers\ProgramController::class);
     Route::get('/user', [AdminController::class, 'user'])->middleware('userAkses:user');
     Route::get('/logout', [SesiController::class, 'logout']);
 });

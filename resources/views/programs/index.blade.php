@@ -2,13 +2,13 @@
 @extends('index')
 
 @section('content')
-<div class="card shadow-lg mx-4">
+<div class="card shadow-lg mx-4 card-profile-bottom">
   <div class="card-body">
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-header pb-0">
-            <h4>Data Realisasi Anggaran</h4>
+            <h4>Data Realisasi Program</h4>
           </div>
           <div class="col-md-4">
             <!-- Button trigger modal -->
@@ -21,33 +21,32 @@
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis Usaha</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Modal</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Uang Masuk</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Uang Keluar</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Keuntungan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unit Usaha</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Penyewaan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Berjalan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Penjualan</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                   </tr>
                 </thead>
                 <tbody>
   
-                  @forelse ($anggarans as $anggaran)
+                  @forelse ($programs as $program)
                       
                   <tr>
                       <td>
-                        {{$anggaran->jenis_usaha}}
+                        {{$program->unit_usaha}}
                       </td>
                       <td>
-                        Rp.{{$anggaran->modal}}
+                        {{$program->penyewaan}}
                       </td>
                       <td>
-                        Rp.{{$anggaran->uang_masuk}}
+                        {{$program->berjalan}}
                       </td>
                       <td>
-                        Rp.{{$anggaran->uang_keluar}}
+                        {{$program->penjualan}}
                       </td>
                       <td>
-                        Rp.{{$anggaran->keuntungan}}
+                        {{$anggaran->keuntungan}}
                       </td>
                       <td class="align-middle">
                         <a href="{{ route('anggarans.show', $anggaran->id) }}" class="btn bg-gradient-secondary" role="button" aria-pressed="true">
