@@ -50,9 +50,18 @@
                         Rp.{{$anggaran->keuntungan}}
                       </td>
                       <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
+                        <a href="{{ route('anggarans.show', $anggaran->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                          view
                         </a>
+                        <a href="{{ route('anggarans.edit', $anggaran->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                          edit
+                        </a>
+                        <form action="{{ route('anggarans.destroy', $anggaran->id) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn bg-gradient-danger" onclick="return confirm('Anda yakin ingin menghapus data ini?')">Hapus</button>
+                        </form>
+
                       </td>
                   </tr>
                   
