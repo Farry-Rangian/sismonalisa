@@ -71,9 +71,9 @@ class AnggaranController extends Controller
     public function show(string $id): View
     {
         //get post by ID
-        $post = Anggaran::findOrFail($id);
+        $anggaran = Anggaran::findOrFail($id);
 
-        //render view with post
-        return view('anggarans.show', compact('anggarans'));
+        //render view with anggaran
+        return view('anggarans.show', compact('anggaran'));
     }
 }

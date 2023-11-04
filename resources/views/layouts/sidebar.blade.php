@@ -31,7 +31,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Pengawasan Rutin</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="realisasi-anggaran">
+          <a class="nav-link " href="anggarans">
           {{-- @if (Auth::user()->role == 'admin')
           <a class="nav-link " href="admin/realisasi-anggaran">
           @else

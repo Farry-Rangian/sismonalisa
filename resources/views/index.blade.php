@@ -122,6 +122,7 @@
   <script src="{{ asset('js/plugins/perfect-scrollbar.min.js')}}"></script>
   <script src="{{ asset('js/plugins/smooth-scrollbar.min.js')}}"></script>
   <script src="{{ asset('js/plugins/chartjs.min.js')}}"></script>
+  <script src="{{ asset('js/plugins/countup.min.js')}}"></script>
   <script>
     var ctx1 = document.getElementById("chart-line").getContext("2d");
 
