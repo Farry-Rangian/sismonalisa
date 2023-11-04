@@ -2,7 +2,7 @@
 @extends('index')
 
 @section('content')
-<div class="card card-frame">
+<div class="card shadow-lg mx-4 card-profile-bottom">
   <div class="card-body">
     <div class="row">
       <div class="col-12">
