@@ -10,7 +10,7 @@ class Anggaran extends Model
     use HasFactory;
 
     protected $fillable = [
-        'jenis-usaha',
+        'jenis_usaha',
         'modal',
         'uang_masuk',
         'uang_keluar',

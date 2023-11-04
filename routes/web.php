@@ -29,7 +29,7 @@ Route::get('/home', function(){
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/admin', [AdminController::class, 'index'])->middleware('userAkses:admin');
-    Route::resource('/admin/realisasi-anggaran', \App\Http\Controllers\AnggaranController::class)->middleware('userAkses:admin');
+    Route::resource('/anggarans', \App\Http\Controllers\AnggaranController::class);
     Route::get('/user', [AdminController::class, 'user'])->middleware('userAkses:user');
     Route::get('/logout', [SesiController::class, 'logout']);
 });
