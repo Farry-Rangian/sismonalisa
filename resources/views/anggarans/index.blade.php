@@ -50,12 +50,19 @@
                         Rp.{{$anggaran->keuntungan}}
                       </td>
                       <td class="align-middle">
-                        <a href="{{ route('anggarans.show', $anggaran->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        <a href="{{ route('anggarans.show', $anggaran->id) }}" class="btn bg-gradient-secondary" role="button" aria-pressed="true">
+                          Lihat
+                        </a>
+                        <a href="{{ route('anggarans.edit', $anggaran->id) }}" class="btn bg-gradient-info" role="button" aria-pressed="true">
+                          Edit
+                        </a>
+
+                        {{-- <a href="{{ route('anggarans.show', $anggaran->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           view
-                        </a>
-                        <a href="{{ route('anggarans.edit', $anggaran->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        </a> --}}
+                        {{-- <a href="{{ route('anggarans.edit', $anggaran->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           edit
-                        </a>
+                        </a> --}}
                         <form action="{{ route('anggarans.destroy', $anggaran->id) }}" method="POST">
                           @csrf
                           @method('DELETE')
