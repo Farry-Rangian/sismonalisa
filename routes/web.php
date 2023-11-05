@@ -7,6 +7,7 @@ use App\Http\Controllers\KeuntunganController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PembagianController;
 use App\Http\Controllers\KesimpulanController;
+use App\Http\Controllers\PengawasanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('/pelaporans', \App\Http\Controllers\PelaporanController::class);
     Route::resource('/pembagians', \App\Http\Controllers\PembagianController::class);
     Route::resource('/kesimpulans', \App\Http\Controllers\KesimpulanController::class);
+    Route::resource('/pengawasans', \App\Http\Controllers\PengawasanController::class);
     Route::get('/user', [AdminController::class, 'user'])->middleware('userAkses:user');
     Route::get('/logout', [SesiController::class, 'logout']);
 });
