@@ -19,8 +19,8 @@
             <div class="form-group">
                 <label for="example-text-input" class="form-control-label">Penyewaan</label>
                 <select name="penyewaan" class="form-control form-control-sm">
-                    <option value="0">Tidak</option>
-                    <option value="1">Ya</option>
+                    <option value="0" @if(old('penyewaan', $program->penyewaan) == 0) selected @endif>Tidak</option>
+                    <option value="1" @if(old('penyewaan', $program->penyewaan) == 1) selected @endif>Ya</option>
                 </select>
                 <!-- error message untuk modal -->
                 @error('penyewaan')
@@ -32,8 +32,8 @@
             <div class="form-group">
                 <label for="example-text-input" class="form-control-label">Berjalan</label>
                 <select name="berjalan" class="form-control form-control-sm">
-                    <option value="0">Tidak</option>
-                    <option value="1">Ya</option>   
+                    <option value="0" @if(old('berjalan', $program->berjalan) == 0) selected @endif>Tidak</option>
+                    <option value="1" @if(old('berjalan', $program->berjalan) == 1) selected @endif>Ya</option>   
                 </select>
                 <!-- error message untuk modal -->
                 @error('berjalan')
@@ -45,8 +45,8 @@
             <div class="form-group">
                 <label for="example-text-input" class="form-control-label">Penjualan</label>
                 <select name="penjualan" class="form-control form-control-sm">
-                    <option value="0">Tidak</option>
-                    <option value="1">Ya</option>
+                    <option value="0" @if(old('penjualan', $program->penjualan) == 0) selected @endif>Tidak</option>
+                    <option value="1" @if(old('penjualan', $program->penjualan) == 1) selected @endif>Ya</option>
                 </select>
                 <!-- error message untuk modal -->
                 @error('penjualan')
