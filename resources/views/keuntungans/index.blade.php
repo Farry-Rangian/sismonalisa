@@ -8,7 +8,7 @@
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-header pb-0">
-            <h4>Data Realisasi Anggaran</h4>
+            <h4>Data Pemanfaatan Keuntungan</h4>
           </div>
           <div class="col-md-4">
             <!-- Button trigger modal -->
