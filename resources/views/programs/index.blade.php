@@ -2,7 +2,7 @@
 @extends('index')
 
 @section('content')
-<div class="card shadow-lg mx-4 card-profile-bottom">
+<div class="card shadow-lg mx-4">
   <div class="card-body">
     <div class="row">
       <div class="col-12">
@@ -12,7 +12,7 @@
           </div>
           <div class="col-md-4">
             <!-- Button trigger modal -->
-            <a href="anggarans/create" class="btn bg-gradient-success" role="button" aria-pressed="true">
+            <a href="programs/create" class="btn bg-gradient-success" role="button" aria-pressed="true">
               Tambah Data
             </a>
           </div>
@@ -37,32 +37,34 @@
                         {{$program->unit_usaha}}
                       </td>
                       <td>
-                        {{$program->penyewaan}}
+                        @if ($program->penyewaan == 1)
+                        Ya
+                        @else
+                        Tidak
+                        @endif
                       </td>
                       <td>
-                        {{$program->berjalan}}
+                        @if ($program->berjalan == 1)
+                        Ya
+                        @else
+                        Tidak
+                        @endif
                       </td>
                       <td>
-                        {{$program->penjualan}}
-                      </td>
-                      <td>
-                        {{$anggaran->keuntungan}}
+                        @if ($program->penjualan == 1)
+                        Ya
+                        @else
+                        Tidak
+                        @endif
                       </td>
                       <td class="align-middle">
-                        <a href="{{ route('anggarans.show', $anggaran->id) }}" class="btn bg-gradient-secondary" role="button" aria-pressed="true">
+                        <a href="{{ route('programs.show', $program->id) }}" class="btn bg-gradient-secondary" role="button" aria-pressed="true">
                           Lihat
                         </a>
-                        <a href="{{ route('anggarans.edit', $anggaran->id) }}" class="btn bg-gradient-info" role="button" aria-pressed="true">
+                        <a href="{{ route('programs.edit', $program->id) }}" class="btn bg-gradient-info" role="button" aria-pressed="true">
                           Edit
                         </a>
-
-                        {{-- <a href="{{ route('anggarans.show', $anggaran->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          view
-                        </a> --}}
-                        {{-- <a href="{{ route('anggarans.edit', $anggaran->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          edit
-                        </a> --}}
-                        <form action="{{ route('anggarans.destroy', $anggaran->id) }}" method="POST">
+                        <form action="{{ route('programs.destroy', $program->id) }}" method="POST">
                           @csrf
                           @method('DELETE')
                           <button type="submit" class="btn bg-gradient-danger" onclick="return confirm('Anda yakin ingin menghapus data ini?')">Hapus</button>
@@ -73,7 +75,7 @@
                   
                   @empty
                   <div class="alert alert-danger" role="alert">
-                      Data Realisasi Anggaran belum Tersedia
+                      Data Realisasi Program belum Tersedia
                   </div>
                   @endforelse
                 </tbody>
