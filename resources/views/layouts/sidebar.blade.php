@@ -62,8 +62,28 @@
             <span class="nav-link-text ms-1">Pelaporan</span>
           </a>
         </li>
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Laporan Tahunan</h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{{ route('pembagians.index') }}">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Pembagian Laba Tahunan</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{{ route('pembagians.index') }}">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-collection text-info text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Kesimpulan Tahunan</span>
+          </a>
+        </li>
       </ul>
     </div>
+    
     <div class="sidenav-footer mx-3 ">
       <div class="card card-plain shadow-none" id="sidenavCard">
         <img class="w-50 mx-auto" src="{{ asset('img/illustrations/icon-documentation.svg')}}" alt="sidebar_illustration">
@@ -74,6 +94,7 @@
           </div>
         </div>
       </div>
+      
       <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
       <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
     </div>
