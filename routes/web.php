@@ -43,7 +43,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('/pembagians', \App\Http\Controllers\PembagianController::class);
     Route::resource('/kesimpulans', \App\Http\Controllers\KesimpulanController::class);
     Route::resource('/pengawasans', \App\Http\Controllers\PengawasanController::class);
-    Route::resource('/datadesas', \App\Http\Controllers\DatadesaController::class);
+    Route::resource('/datadesas', \App\Http\Controllers\DatadesaController::class)->middleware('userAkses:admin');
     Route::get('/user', [AdminController::class, 'user'])->middleware('userAkses:user');
     Route::get('/logout', [SesiController::class, 'logout']);
 });
