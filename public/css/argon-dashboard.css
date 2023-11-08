@@ -5226,6 +5226,7 @@ fieldset:disabled .btn {
   color: var(--bs-card-cap-color);
   background-color: var(--bs-card-cap-bg);
   border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
+  display: none;
 }
 
 .card-footer:last-child {
