@@ -10,9 +10,16 @@ class Pelaporan extends Model
     use HasFactory;
 
     protected $fillable = [
+        'datadesa_id',
         'laporan_semester',
         'proposal',
         'kwitansi',
-        'dokumentasi'
+        'dokumentasi',
+        'tanggal'
     ];
+
+    public function datadesa()
+    {
+        return $this->belongsTo(Datadesa::class);
+    }
 }

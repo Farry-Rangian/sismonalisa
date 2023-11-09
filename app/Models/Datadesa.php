@@ -24,4 +24,19 @@ class Datadesa extends Model
     {
         return $this->hasMany(Program::class);
     }
+
+    public function anggaran()
+    {
+        return $this->hasMany(Anggaran::class);
+    }
+
+    public function keuntungan()
+    {
+        return $this->hasMany(Keuntungan::class);
+    }
+
+    public function pelaporan()
+    {
+        return $this->hasMany(Pelaporan::class);
+    }
 }

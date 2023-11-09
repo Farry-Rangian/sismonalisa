@@ -4,6 +4,7 @@
 <div class="card shadow-lg mx-4 card-profile-bottom">
     <div class="card-body p-3">
       <div class="row gx-4">
+        <h5>{{$pelaporan->datadesa->nama_desa}}</h5>
         <div class="row">
             <div class="col-lg-3 col-6 text-center">
               <div class="border-dashed border-1 border-secondary border-radius-md py-3">

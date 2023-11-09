@@ -10,10 +10,17 @@ class Keuntungan extends Model
     use HasFactory;
 
     protected $fillable = [
+        'datadesa_id',
         'penguatan_modal',
         'penasihat',
         'pengawas',
         'pelaksana',
-        'anggota'
+        'anggota',
+        'tanggal'
     ];
+
+    public function datadesa()
+    {
+        return $this->belongsTo(Datadesa::class);
+    }
 }

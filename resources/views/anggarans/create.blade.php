@@ -6,6 +6,16 @@
         <form action="{{ route('anggarans.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Desa</label>
+                <input type="number" class="form-control" name="datadesa_id" value="{{ $datadesa_id }}" readonly>
+                <!-- error message untuk datadesa_id -->
+                @error('datadesa_id')
+                <div class="alert alert-danger" role="alert">
+                    {{$message}}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group">
                 <label for="example-text-input" class="form-control-label">Jenis Usaha</label>
                 <input type="text" class="form-control @error('jenis_usaha') is-invalid @enderror" name="jenis_usaha" value="{{ old('jenis_usaha') }}" placeholder="Jenis Usaha">
                 <!-- error message untuk jenis_usaha -->
@@ -54,6 +64,10 @@
                     {{$message}}
                 </div>
                 @enderror
+            </div>
+            <div class="form-group">
+                <label for="example-date-input" class="form-control-label">Tanggal</label>
+                <input class="form-control" type="date" name="tanggal" id="example-date-input">
             </div>
             <button type="submit" class="btn btn-info">Tambah</button>
         </form>

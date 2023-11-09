@@ -122,7 +122,8 @@ class ProgramController extends Controller
             'usaha' => 'required|min:5',
             'penyewaan' => 'required',
             'berjalan' => 'required',
-            'penjualan' => 'required'
+            'penjualan' => 'required',
+            'tanggal' => 'required'
         ]);
 
         //get post by ID
@@ -134,6 +135,7 @@ class ProgramController extends Controller
             'penyewaan'     => $request->penyewaan,
             'berjalan'   => $request->berjalan,
             'penjualan'   => $request->penjualan,
+            'tanggal'   => $request->tanggal,
         ]);
 
         //redirect to index

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Anggaran;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,8 +19,21 @@ class AnggaranController extends Controller
      */
     public function index(): View
     {
+        // Mengambil pengguna yang saat ini login
+        $user = Auth::user();
+
         //get anggarans
-        $anggarans = Anggaran::latest()->paginate(5);
+        // Memeriksa peran pengguna
+        if ($user->role === 'admin') {
+            // Jika pengguna adalah admin, maka ambil semua data
+            $anggarans = Anggaran::latest()->paginate(5);
+        } else {
+            // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
+            $datadesa = $user->datadesa;
+            $anggarans = Anggaran::where('datadesa_id', $datadesa->id)
+                ->latest()
+                ->paginate(5);
+        }
 
         //render view with posts
         return view('anggarans.index', compact('anggarans'));
@@ -31,7 +45,9 @@ class AnggaranController extends Controller
      */
     public function create(): View
     {
-        return view('anggarans.create');
+        $user = Auth::user();
+        $datadesa_id = $user->datadesa->id;
+        return view('anggarans.create',compact('datadesa_id'));
     }
 
     /**
@@ -49,15 +65,21 @@ class AnggaranController extends Controller
             'uang_masuk' => 'required|numeric',
             'uang_keluar' => 'required|numeric',
             'keuntungan' => 'required|numeric',
+            'tanggal' => 'required',
+            'datadesa_id' => 'required',
         ]);
 
+        // Mengambil pengguna yang sedang login
+        $user = Auth::user();
         //create post
         Anggaran::create([
             'jenis_usaha'     => $request->jenis_usaha,
             'modal'     => $request->modal,
             'uang_masuk'   => $request->uang_masuk,
             'uang_keluar'   => $request->uang_keluar,
-            'keuntungan'   => $request->keuntungan
+            'keuntungan'   => $request->keuntungan,
+            'tanggal' => $request->tanggal,
+            'datadesa_id' => $user->datadesa->id,
         ]);
 
         //redirect to index

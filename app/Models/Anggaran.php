@@ -10,10 +10,17 @@ class Anggaran extends Model
     use HasFactory;
 
     protected $fillable = [
+        'datadesa_id',
         'jenis_usaha',
         'modal',
         'uang_masuk',
         'uang_keluar',
-        'keuntungan'
+        'keuntungan',
+        'tanggal'
     ];
+
+    public function datadesa()
+    {
+        return $this->belongsTo(Datadesa::class);
+    }
 }

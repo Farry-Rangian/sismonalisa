@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('keuntungans', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('datadesa_id');
             $table->string('penguatan_modal');
             $table->string('penasihat');
             $table->string('pengawas');
             $table->string('pelaksana');
             $table->string('anggota');
+            $table->date('tanggal');
             $table->timestamps();
+
+            $table->foreign('datadesa_id')->references('id')->on('datadesas')->onDelete('cascade');
         });
     }
 

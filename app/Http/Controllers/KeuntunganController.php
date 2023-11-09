@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Keuntungan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class KeuntunganController extends Controller
@@ -17,8 +18,20 @@ class KeuntunganController extends Controller
      */
     public function index(): View
     {
-        //get keuntungans
-        $keuntungans = Keuntungan::latest()->paginate(5);
+        // Mengambil pengguna yang saat ini login
+        $user = Auth::user();
+
+        // Memeriksa peran pengguna
+        if ($user->role === 'admin') {
+            // Jika pengguna adalah admin, maka ambil semua data
+            $keuntungans = Keuntungan::latest()->paginate(5);
+        } else {
+            // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
+            $datadesa = $user->datadesa;
+            $keuntungans = Keuntungan::where('datadesa_id', $datadesa->id)
+                ->latest()
+                ->paginate(5);
+        }
 
         //render view with posts
         return view('keuntungans.index', compact('keuntungans'));
@@ -30,7 +43,9 @@ class KeuntunganController extends Controller
      */
     public function create(): View
     {
-        return view('keuntungans.create');
+        $user = Auth::user();
+        $datadesa_id = $user->datadesa->id;
+        return view('keuntungans.create', compact('datadesa_id'));
     }
 
     /**
@@ -48,7 +63,12 @@ class KeuntunganController extends Controller
             'pengawas' => 'required|min:5',
             'pelaksana' => 'required|min:5',
             'anggota' => 'required|min:5',
+            'tanggal' => 'required',
+            'datadesa_id' => 'required',
         ]);
+
+        // Mengambil pengguna yang sedang login
+        $user = Auth::user();
 
         //create post
         Keuntungan::create([
@@ -56,7 +76,9 @@ class KeuntunganController extends Controller
             'penasihat'     => $request->penasihat,
             'pengawas'   => $request->pengawas,
             'pelaksana'   => $request->pelaksana,
-            'anggota'   => $request->anggota
+            'anggota'   => $request->anggota,
+            'tanggal' => $request->tanggal,
+            'datadesa_id' => $user->datadesa->id,
         ]);
 
         //redirect to index
@@ -106,6 +128,7 @@ class KeuntunganController extends Controller
             'pengawas' => 'required|min:5',
             'pelaksana' => 'required|min:5',
             'anggota' => 'required|min:5',
+            'tanggal' => 'required'
         ]);
 
         //get post by ID
@@ -117,7 +140,8 @@ class KeuntunganController extends Controller
             'penasihat' => $request->penasihat,
             'pengawas' => $request->pengawas,
             'pelaksana' => $request->pelaksana,
-            'anggota' => $request->anggota
+            'anggota' => $request->anggota,
+            'tanggal'   => $request->tanggal,
         ]);
 
         //redirect to index

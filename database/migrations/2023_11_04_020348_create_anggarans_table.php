@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('anggarans', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('datadesa_id');
             $table->string('jenis_usaha');
             $table->bigInteger('modal');
             $table->bigInteger('uang_masuk');
             $table->bigInteger('uang_keluar');
             $table->bigInteger('keuntungan');
+            $table->date('tanggal');
             $table->timestamps();
+            
+            $table->foreign('datadesa_id')->references('id')->on('datadesas')->onDelete('cascade');
         });
     }
 

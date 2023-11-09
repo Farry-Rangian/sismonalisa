@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Pelaporan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class PelaporanController extends Controller
@@ -17,8 +18,20 @@ class PelaporanController extends Controller
      */
     public function index(): View
     {
-        //get pelaporans
-        $pelaporans = Pelaporan::latest()->paginate(5);
+        // Mengambil pengguna yang saat ini login
+        $user = Auth::user();
+
+        // Memeriksa peran pengguna
+        if ($user->role === 'admin') {
+            // Jika pengguna adalah admin, maka ambil semua data
+            $pelaporans = Pelaporan::latest()->paginate(5);
+        } else {
+            // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
+            $datadesa = $user->datadesa;
+            $pelaporans = Pelaporan::where('datadesa_id', $datadesa->id)
+                ->latest()
+                ->paginate(5);
+        }
 
         //render view with posts
         return view('pelaporans.index', compact('pelaporans'));
@@ -30,7 +43,9 @@ class PelaporanController extends Controller
      */
     public function create(): View
     {
-        return view('pelaporans.create');
+        $user = Auth::user();
+        $datadesa_id = $user->datadesa->id;
+        return view('pelaporans.create',compact('datadesa_id'));
     }
 
     /**
@@ -46,8 +61,13 @@ class PelaporanController extends Controller
             'laporan_semester' => 'required',
             'proposal' => 'required',
             'kwitansi' => 'required',
-            'dokumentasi' => 'required'
+            'dokumentasi' => 'required',
+            'tanggal' => 'required',
+            'datadesa_id' => 'required',
         ]);
+
+        // Mengambil pengguna yang sedang login
+        $user = Auth::user();
 
         //create post
         Pelaporan::create([
@@ -55,6 +75,8 @@ class PelaporanController extends Controller
             'proposal'     => $request->proposal,
             'kwitansi'   => $request->kwitansi,
             'dokumentasi'   => $request->dokumentasi,
+            'tanggal' => $request->tanggal,
+            'datadesa_id' => $user->datadesa->id,
         ]);
 
         //redirect to index
@@ -102,7 +124,8 @@ class PelaporanController extends Controller
             'laporan_semester' => 'required',
             'proposal' => 'required',
             'kwitansi' => 'required',
-            'dokumentasi' => 'required'
+            'dokumentasi' => 'required',
+            'tanggal' => 'required'
         ]);
 
         //get post by ID
@@ -114,6 +137,7 @@ class PelaporanController extends Controller
             'proposal'     => $request->proposal,
             'kwitansi'   => $request->kwitansi,
             'dokumentasi'   => $request->dokumentasi,
+            'tanggal'   => $request->tanggal,
         ]);
 
         //redirect to index

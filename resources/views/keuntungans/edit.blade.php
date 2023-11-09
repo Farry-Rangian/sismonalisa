@@ -56,6 +56,10 @@
                 </div>
                 @enderror
             </div>
+            <div class="form-group">
+                <label for="example-date-input" class="form-control-label">Tanggal</label>
+                <input class="form-control" type="date" name="tanggal" value="{{ old('tanggal', $keuntungan->tanggal) }}" id="example-date-input">
+            </div>
             <button type="submit" class="btn btn-info">Update</button>
         </form>
     </div>
