@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
-            $table->string('unit_usaha');
+            $table->unsignedBigInteger('datadesa_id');
+            $table->string('usaha');
             $table->boolean('penyewaan');
             $table->boolean('berjalan');
             $table->boolean('penjualan');
+            $table->date('tanggal');
             $table->timestamps();
+
+            $table->foreign('datadesa_id')->references('id')->on('datadesas')->onDelete('cascade');
         });
     }
 

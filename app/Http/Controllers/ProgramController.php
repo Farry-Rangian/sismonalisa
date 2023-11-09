@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Program;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ProgramController extends Controller
@@ -17,10 +18,20 @@ class ProgramController extends Controller
      */
     public function index(): View
     {
-        //get programs
-        $programs = Program::latest()->paginate(5);
+        // Mengambil pengguna yang saat ini login
+        $user = Auth::user();
 
-        //render view with posts
+        // Memeriksa peran pengguna
+        if ($user->role === 'admin') {
+            // Jika pengguna adalah admin, maka ambil semua data
+            $programs = Program::latest()->paginate(5);
+        } else {
+            // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
+            $datadesa = $user->datadesa;
+            $programs = Program::where('datadesa_id', $datadesa->id)
+                ->latest()
+                ->paginate(5);
+        }
         return view('programs.index', compact('programs'));
     }
     /**
@@ -30,7 +41,9 @@ class ProgramController extends Controller
      */
     public function create(): View
     {
-        return view('programs.create');
+        $user = Auth::user();
+        $datadesa_id = $user->datadesa->id;
+        return view('programs.create', compact('datadesa_id'));
     }
 
     /**
@@ -43,18 +56,25 @@ class ProgramController extends Controller
     {
         //validate form
         $this->validate($request, [
-            'unit_usaha' => 'required|min:5',
+            'usaha' => 'required|min:5',
             'penyewaan' => 'required',
             'berjalan' => 'required',
-            'penjualan' => 'required'
+            'penjualan' => 'required',
+            'tanggal' => 'required',
+            'datadesa_id' => 'required',
         ]);
 
-        //create post
+        // Mengambil pengguna yang sedang login
+        $user = Auth::user();
+
+        // Membuat program dengan datadesa_id yang sesuai
         Program::create([
-            'unit_usaha'     => $request->unit_usaha,
-            'penyewaan'     => $request->penyewaan,
-            'berjalan'   => $request->berjalan,
-            'penjualan'   => $request->penjualan,
+            'usaha' => $request->usaha,
+            'penyewaan' => $request->penyewaan,
+            'berjalan' => $request->berjalan,
+            'penjualan' => $request->penjualan,
+            'tanggal' => $request->tanggal,
+            'datadesa_id' => $user->datadesa->id,
         ]);
 
         //redirect to index
@@ -99,7 +119,7 @@ class ProgramController extends Controller
     {
         //validate form
         $this->validate($request, [
-            'unit_usaha' => 'required|min:5',
+            'usaha' => 'required|min:5',
             'penyewaan' => 'required',
             'berjalan' => 'required',
             'penjualan' => 'required'
@@ -110,7 +130,7 @@ class ProgramController extends Controller
 
         // Update the model with the new data
         $program->update([
-            'unit_usaha'     => $request->unit_usaha,
+            'usaha'     => $request->usaha,
             'penyewaan'     => $request->penyewaan,
             'berjalan'   => $request->berjalan,
             'penjualan'   => $request->penjualan,

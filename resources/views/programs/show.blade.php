@@ -4,7 +4,7 @@
 <div class="card shadow-lg mx-4 card-profile-bottom">
     <div class="card-body p-3">
       <div class="row gx-4">
-        <h5>{{$program->unit_usaha}}</h5>
+        <h5>{{$program->usaha}}</h5>
         <div class="row">
             <div class="col-lg-3 col-6 text-center">
               <div class="border-dashed border-1 border-secondary border-radius-md py-3">

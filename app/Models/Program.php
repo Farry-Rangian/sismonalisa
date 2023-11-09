@@ -7,10 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Program extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
-        'unit_usaha',
+        'datadesa_id',
+        'usaha',
         'penyewaan',
         'berjalan',
-        'penjualan'
+        'penjualan',
+        'tanggal'
     ];
+
+    public function datadesa()
+    {
+        return $this->belongsTo(Datadesa::class);
+    }
 }

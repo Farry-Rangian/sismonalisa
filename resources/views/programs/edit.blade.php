@@ -8,9 +8,9 @@
              @method('PUT')
             <div class="form-group">
                 <label for="example-text-input" class="form-control-label">Unit Usaha</label>
-                <input type="text" class="form-control @error('unit_usaha') is-invalid @enderror" name="unit_usaha" value="{{ old('unit_usaha', $program->unit_usaha) }}" placeholder="Unit Usaha">
-                <!-- error message untuk unit_usaha -->
-                @error('unit_usaha')
+                <input type="text" class="form-control @error('usaha') is-invalid @enderror" name="usaha" value="{{ old('usaha', $program->usaha) }}" placeholder="Unit Usaha">
+                <!-- error message untuk usaha -->
+                @error('usaha')
                 <div class="alert alert-danger" role="alert">
                     {{$message}}
                 </div>
@@ -54,6 +54,10 @@
                     {{$message}}
                 </div>
                 @enderror
+            </div>
+            <div class="form-group">
+                <label for="example-date-input" class="form-control-label">Tanggal</label>
+                <input class="form-control" type="date" name="tanggal" value="{{ old('tanggal', $program->tanggal) }}" id="example-date-input">
             </div>
             <button type="submit" class="btn btn-info">Update</button>
         </form>
