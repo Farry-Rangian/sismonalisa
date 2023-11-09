@@ -14,4 +14,9 @@ class Datadesa extends Model
         'nama_desa',
         'kecamatan',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

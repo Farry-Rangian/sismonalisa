@@ -36,7 +36,7 @@
                         {{$datadesa->kecamatan}}
                       </td>
                       <td>
-                        {{$datadesa->user_id}}
+                        {{$datadesa->user->name}}
                       </td>
                       {{-- <td class="align-middle">
                         <a href="{{ route('datadesas.show', $datadesa->id) }}" class="btn bg-gradient-secondary" role="button" aria-pressed="true">
