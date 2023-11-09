@@ -7,11 +7,8 @@
             @csrf
             @method('PUT')
             <div class="form-group">
-                <label for="example-text-input" class="form-control-label">Kesimpulan Program</label>
-                <select name="program" class="form-control form-control-sm">
-                    <option value="0" @if(old('program', $kesimpulan->program) == 0) selected @endif>Tidak</option>
-                    <option value="1" @if(old('program', $kesimpulan->program) == 1) selected @endif>Ya</option>
-                </select>
+                <label for="exampleFormControlTextarea1">Kesimpulan Program</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="program" value="{{ old('program', $kesimpulan->program) }}" rows="3"></textarea>
                 <!-- error message untuk modal -->
                 @error('program')
                 <div class="alert alert-danger" role="alert">
@@ -20,11 +17,8 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="example-text-input" class="form-control-label">Kesimpulan Anggaran</label>
-                <select name="anggaran" class="form-control form-control-sm">
-                    <option value="0" @if(old('anggaran', $kesimpulan->anggaran) == 0) selected @endif>Tidak</option>
-                    <option value="1" @if(old('anggaran', $kesimpulan->anggaran) == 1) selected @endif>Ya</option>
-                </select>
+                <label for="exampleFormControlTextarea1">Kesimpulan Anggaran</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="anggaran" value="{{ old('anggaran', $kesimpulan->anggaran) }}" rows="3"></textarea>
                 <!-- error message untuk modal -->
                 @error('anggaran')
                 <div class="alert alert-danger" role="alert">

@@ -28,18 +28,10 @@
                       
                   <tr>
                       <td>
-                        @if ($kesimpulan->program == 1)
-                        Ya
-                        @else
-                        Tidak
-                        @endif
+                        {{$kesimpulan->program}}
                       </td>
                       <td>
-                        @if ($kesimpulan->anggaran == 1)
-                        Ya
-                        @else
-                        Tidak
-                        @endif
+                        {{$kesimpulan->anggaran}}
                       </td>
                       <td class="align-middle">
                         {{-- <a href="{{ route('kesimpulans.show', $kesimpulan->id) }}" class="btn bg-gradient-secondary" role="button" aria-pressed="true">
