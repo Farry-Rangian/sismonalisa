@@ -54,7 +54,7 @@ class KesimpulanController extends Controller
             ]);
     
             //redirect to index
-            return redirect()->route('kesimpulans.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('kesimpulan.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }
         /**
          * show
@@ -109,7 +109,7 @@ class KesimpulanController extends Controller
             ]);
     
             //redirect to index
-            return redirect()->route('kesimpulans.index')->with(['success' => 'Data Berhasil Diubah!']);
+            return redirect()->route('kesimpulan.index')->with(['success' => 'Data Berhasil Diubah!']);
         }
         /**
          * destroy
@@ -126,6 +126,6 @@ class KesimpulanController extends Controller
             $kesimpulan->delete();
     
             //redirect to index
-            return redirect()->route('kesimpulans.index')->with(['success' => 'Data Berhasil Dihapus!']);
+            return redirect()->route('kesimpulan.index')->with(['success' => 'Data Berhasil Dihapus!']);
         }
     }
