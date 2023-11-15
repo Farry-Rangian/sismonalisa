@@ -36,6 +36,28 @@ class KeuntunganController extends Controller
         //render view with posts
         return view('keuntungans.index', compact('keuntungans'));
     }
+
+    public function getDataBySemester($semester)
+    {
+        // Ambil data berdasarkan semester (1 atau 2)
+        $keuntungans = Keuntungan::whereRaw("MONTH(tanggal) " . ($semester == 1 ? "BETWEEN 1 AND 6" : "BETWEEN 7 AND 12"))->get();
+
+        // Memeriksa peran pengguna
+        $user = Auth::user();
+        if ($user->role === 'admin') {
+            // Jika pengguna adalah admin, maka ambil semua data
+            $keuntungans = $keuntungans->merge(keuntungan::where('datadesa_id', null)->get());
+        } else {
+            // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
+            $datadesa = $user->datadesa;
+            $keuntungans = $keuntungans->filter(function ($keuntungan) use ($datadesa) {
+                return $keuntungan->datadesa_id == $datadesa->id;
+            });
+        }
+
+        return view('keuntungans.index', compact('keuntungans', 'semester'));
+    }
+
     /**
      * create
      *
@@ -81,8 +103,17 @@ class KeuntunganController extends Controller
             'datadesa_id' => $user->datadesa->id,
         ]);
 
-        //redirect to index
-        return redirect()->route('keuntungans.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        $bulan = date('m', strtotime($request->tanggal));
+
+        //jika bulan termasuk semester 1
+        if ($bulan >= 1 && $bulan <= 6) {
+            return redirect()->to('pemanfaatan-keuntungan/semester/1')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
+    
+        //jika bulan termasuk semester 2
+        else {
+            return redirect()->to('pemanfaatan-keuntungan/semester/2')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
     }
     /**
      * show
@@ -144,8 +175,17 @@ class KeuntunganController extends Controller
             'tanggal'   => $request->tanggal,
         ]);
 
-        //redirect to index
-        return redirect()->route('keuntungans.index')->with(['success' => 'Data Berhasil Diubah!']);
+        $bulan = date('m', strtotime($request->tanggal));
+
+        //jika bulan termasuk semester 1
+        if ($bulan >= 1 && $bulan <= 6) {
+            return redirect()->to('pemanfaatan-keuntungan/semester/1')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
+    
+        //jika bulan termasuk semester 2
+        else {
+            return redirect()->to('pemanfaatan-keuntungan/semester/2')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
     }
     /**
      * destroy
@@ -161,7 +201,6 @@ class KeuntunganController extends Controller
         //delete post
         $keuntungan->delete();
 
-        //redirect to index
-        return redirect()->route('keuntungans.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->back()->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

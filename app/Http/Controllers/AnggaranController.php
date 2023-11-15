@@ -198,7 +198,6 @@ class AnggaranController extends Controller
         //delete post
         $anggaran->delete();
 
-        //redirect to index
         return redirect()->back()->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }
