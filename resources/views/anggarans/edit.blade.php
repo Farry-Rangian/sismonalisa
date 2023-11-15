@@ -1,69 +1,132 @@
 @extends('index')
 
 @section('content')
-<div class="card shadow-lg mx-4 card-profile-bottom">
-    <div class="card-body">
-        <form action="{{ route('anggarans.update', $anggaran->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-             @method('PUT')
-            <div class="form-group">
-                <label for="example-text-input" class="form-control-label">jenis_usaha</label>
-                <input type="text" class="form-control @error('jenis_usaha') is-invalid @enderror" name="jenis_usaha" value="{{ old('jenis_usaha', $anggaran->jenis_usaha) }}" placeholder="Jenis Usaha">
-                <!-- error message untuk jenis_usaha -->
-                @error('jenis_usaha')
-                <div class="alert alert-danger" role="alert">
-                    {{$message}}
-                </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="example-text-input" class="form-control-label">modal</label>
-                <input type="number" class="form-control @error('modal') is-invalid @enderror" name="modal" value="{{ old('modal', $anggaran->modal) }}" placeholder="Jenis Usaha">
-                <!-- error message untuk modal -->
-                @error('modal')
-                <div class="alert alert-danger" role="alert">
-                    {{$message}}
-                </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="example-text-input" class="form-control-label">uang_masuk</label>
-                <input type="number" class="form-control @error('uang_masuk') is-invalid @enderror" name="uang_masuk" value="{{ old('uang_masuk', $anggaran->uang_masuk) }}" placeholder="Jenis Usaha">
-                <!-- error message untuk uang_masuk -->
-                @error('uang_masuk')
-                <div class="alert alert-danger" role="alert">
-                    {{$message}}
-                </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="example-text-input" class="form-control-label">uang_keluar</label>
-                <input type="number" class="form-control @error('uang_keluar') is-invalid @enderror" name="uang_keluar" value="{{ old('uang_keluar', $anggaran->uang_keluar) }}" placeholder="Jenis Usaha">
-                <!-- error message untuk uang_keluar -->
-                @error('uang_keluar')
-                <div class="alert alert-danger" role="alert">
-                    {{$message}}
-                </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="example-text-input" class="form-control-label">keuntungan</label>
-                <input type="number" class="form-control @error('keuntungan') is-invalid @enderror" name="keuntungan" value="{{ old('keuntungan', $anggaran->keuntungan) }}" placeholder="Jenis Usaha">
-                <!-- error message untuk keuntungan -->
-                @error('keuntungan')
-                <div class="alert alert-danger" role="alert">
-                    {{$message}}
-                </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="example-date-input" class="form-control-label">Tanggal</label>
-                <input class="form-control" type="date" name="tanggal" value="{{ old('tanggal', $anggaran->tanggal) }}" id="example-date-input">
-            </div>
-            <button type="submit" class="btn btn-info">Update</button>
-        </form>
-    </div>
-  </div>
+@extends('index')
 
+@section('content')
+<div class="content-body">
+    <div class="container-fluid">
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-6 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Realisasi Anggaran</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form action="{{ route('anggarans.update', $anggaran->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 col-form-label">Jenis Usaha</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="jenis_usaha" value="{{ old('jenis_usaha', $anggaran->jenis_usaha) }}" placeholder="Jenis Usaha">
+                                    </div>
+                                    @error('jenis_usaha')
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        {{$message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                        </button>
+                                    </div>
+                                    @enderror
+                                </div>
+                                
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 col-form-label">modal</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" name="modal" placeholder="modal" value="{{ old('modal', $anggaran->modal) }}">
+                                    </div>
+                                    @error('modal')
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        {{$message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                        </button>
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 col-form-label">uang_masuk</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" name="uang_masuk" placeholder="uang_masuk" value="{{ old('uang_masuk', $anggaran->uang_masuk) }}">
+                                    </div>
+                                    @error('uang_masuk')
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        {{$message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                        </button>
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 col-form-label">uang_keluar</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" name="uang_keluar" placeholder="uang_keluar" value="{{ old('uang_keluar', $anggaran->uang_keluar) }}">
+                                    </div>
+                                    @error('uang_keluar')
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        {{$message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                        </button>
+                                    </div>
+                                    @enderror
+                                </div>
+                                
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 col-form-label">Keuntungan</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" name="keuntungan" placeholder="keuntungan" value="{{ old('keuntungan', $anggaran->keuntungan) }}">
+                                    </div>
+                                    @error('keuntungan')
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        {{$message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                        </button>
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 col-form-label">tanggal</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" name="tanggal" placeholder="tanggal" value="{{ old('tanggal', $anggaran->tanggal) }}">
+                                    </div>
+                                    @error('tanggal')
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        {{$message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                        </button>
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary">Tambah</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Daterangepicker -->
+<script src="{{asset('js/plugins-init/bs-daterange-picker-init.js')}}"></script>
+<!-- Clockpicker init -->
+<script src="{{asset('js/plugins-init/clock-picker-init.js')}}"></script>
+<!-- asColorPicker init -->
+<script src="{{asset('js/plugins-init/jquery-asColorPicker.init.js')}}"></script>
+<!-- Material color picker init -->
+<script src="{{asset('js/plugins-init/material-date-picker-init.js')}}"></script>
+<!-- Pickdate -->
+<script src="{{asset('js/plugins-init/pickadate-init.js')}}"></script>
 
 @stop

@@ -38,7 +38,14 @@ let dataSet = [
 ];
 
 
-
+$(document).ready(function() {
+    $('#exampler').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
 
 (function($) {
     "use strict"

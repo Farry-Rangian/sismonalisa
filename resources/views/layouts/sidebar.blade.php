@@ -10,7 +10,7 @@
 						</a>
                     </li>
                     @if (Auth::user()->role == 'admin')
-                    <li><a href="{{route('datadesas.index')}}" class="" aria-expanded="false">
+                    <li><a href="{{route('data-desa.index')}}" class="" aria-expanded="false">
                             <i class="fas fa-user-check"></i>
                             <span class="nav-text">Data Desa</span>
                         </a>
@@ -25,7 +25,7 @@
                                 <ul aria-expanded="false">
                                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">1</a>
                                     <ul aria-expanded="false">
-                                        <li><a href="email-compose.html">Realisasi Anggaran</a></li>
+                                        <li><a href="{{route('data.semester', ['semester' => 1])}}">Realisasi Anggaran</a></li>
                                         <li><a href="email-inbox.html">Realisasi Program</a></li>
                                         <li><a href="email-inbox.html">Pemanfaatan Keuntungan</a></li>
                                         <li><a href="email-inbox.html">Pelaporan</a></li>
@@ -33,7 +33,7 @@
                                     </li>
                                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">2</a>
                                         <ul aria-expanded="false">
-                                            <li><a href="email-compose.html">Realisasi Anggaran</a></li>
+                                            <li><a href="{{route('data.semester', ['semester' => 2])}}">Realisasi Anggaran</a></li>
                                             <li><a href="email-inbox.html">Realisasi Program</a></li>
                                             <li><a href="email-inbox.html">Pemanfaatan Keuntungan</a></li>
                                             <li><a href="email-inbox.html">Pelaporan</a></li>

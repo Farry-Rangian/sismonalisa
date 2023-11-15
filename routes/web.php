@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AnggaranController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\KeuntunganController;
@@ -37,14 +38,15 @@ Route::get('/home', function(){
 Route::middleware(['auth'])->group(function(){
     Route::get('/admin', [AdminController::class, 'index'])->middleware('userAkses:admin');
     Route::resource('/anggarans', \App\Http\Controllers\AnggaranController::class);
+    Route::get('/realisasi-anggaran/semester/{semester}', [AnggaranController::class,'getDataBySemester'])->name('data.semester');
     Route::resource('/programs', \App\Http\Controllers\ProgramController::class);
     Route::resource('/keuntungans', \App\Http\Controllers\KeuntunganController::class);
     Route::resource('/pelaporans', \App\Http\Controllers\PelaporanController::class);
     Route::resource('/pembagians', \App\Http\Controllers\PembagianController::class);
     Route::resource('/kesimpulans', \App\Http\Controllers\KesimpulanController::class);
     Route::resource('/pengawasans', \App\Http\Controllers\PengawasanController::class);
-    Route::resource('/datadesas', \App\Http\Controllers\DatadesaController::class)->middleware('userAkses:admin');
+    Route::resource('/data-desa', \App\Http\Controllers\DatadesaController::class)->middleware('userAkses:admin');
     Route::get('/user', [AdminController::class, 'user'])->middleware('userAkses:user');
-    Route::get('/logout', [SesiController::class, 'logout']);
+    Route::get('/logout', [SesiController::class, 'logout'])->name('logout');
 });
 

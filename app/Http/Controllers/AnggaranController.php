@@ -26,18 +26,38 @@ class AnggaranController extends Controller
         // Memeriksa peran pengguna
         if ($user->role === 'admin') {
             // Jika pengguna adalah admin, maka ambil semua data
-            $anggarans = Anggaran::latest()->paginate(5);
+            $anggarans = Anggaran::latest();
         } else {
             // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
             $datadesa = $user->datadesa;
             $anggarans = Anggaran::where('datadesa_id', $datadesa->id)
-                ->latest()
-                ->paginate(5);
+                ->latest();
         }
 
         //render view with posts
         return view('anggarans.index', compact('anggarans'));
     }
+    public function getDataBySemester($semester)
+    {
+        // Ambil data berdasarkan semester (1 atau 2)
+        $anggarans = Anggaran::whereRaw("MONTH(tanggal) " . ($semester == 1 ? "BETWEEN 1 AND 6" : "BETWEEN 7 AND 12"))->get();
+
+        // Memeriksa peran pengguna
+        $user = Auth::user();
+        if ($user->role === 'admin') {
+            // Jika pengguna adalah admin, maka ambil semua data
+            $anggarans = $anggarans->merge(Anggaran::where('datadesa_id', null)->get());
+        } else {
+            // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
+            $datadesa = $user->datadesa;
+            $anggarans = $anggarans->filter(function ($anggaran) use ($datadesa) {
+                return $anggaran->datadesa_id == $datadesa->id;
+            });
+        }
+
+        return view('anggarans.index', compact('anggarans', 'semester'));
+    }
+
     /**
      * create
      *
@@ -82,8 +102,17 @@ class AnggaranController extends Controller
             'datadesa_id' => $user->datadesa->id,
         ]);
 
-        //redirect to index
-        return redirect()->route('anggarans.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        $bulan = date('m', strtotime($request->tanggal));
+
+        //jika bulan termasuk semester 1
+        if ($bulan >= 1 && $bulan <= 6) {
+            return redirect()->to('realisasi-anggaran/semester/1')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
+    
+        //jika bulan termasuk semester 2
+        else {
+            return redirect()->to('realisasi-anggaran/semester/2')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
     }
     /**
      * show
@@ -143,8 +172,17 @@ class AnggaranController extends Controller
             'keuntungan' => $request->keuntungan
         ]);
 
-        //redirect to index
-        return redirect()->route('anggarans.index')->with(['success' => 'Data Berhasil Diubah!']);
+        $bulan = date('m', strtotime($request->tanggal));
+
+        //jika bulan termasuk semester 1
+        if ($bulan >= 1 && $bulan <= 6) {
+            return redirect()->to('realisasi-anggaran/semester/1')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
+    
+        //jika bulan termasuk semester 2
+        else {
+            return redirect()->to('realisasi-anggaran/semester/2')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
     }
     /**
      * destroy
@@ -161,6 +199,6 @@ class AnggaranController extends Controller
         $anggaran->delete();
 
         //redirect to index
-        return redirect()->route('anggarans.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->back()->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }
