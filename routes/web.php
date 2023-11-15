@@ -43,7 +43,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/realisasi-program/semester/{semester}', [ProgramController::class,'getDataBySemester'])->name('program.semester');
     Route::resource('/pemanfaatan-keuntungan', \App\Http\Controllers\KeuntunganController::class);
     Route::get('/pemanfaatan-keuntungan/semester/{semester}', [KeuntunganController::class,'getDataBySemester'])->name('keuntungan.semester');
-    Route::resource('/pelaporans', \App\Http\Controllers\PelaporanController::class);
+    Route::resource('/pelaporan', \App\Http\Controllers\PelaporanController::class);
+    Route::get('/pelaporan/semester/{semester}', [PelaporanController::class,'getDataBySemester'])->name('pelaporan.semester');
     Route::resource('/pembagians', \App\Http\Controllers\PembagianController::class);
     Route::resource('/kesimpulans', \App\Http\Controllers\KesimpulanController::class);
     Route::resource('/pengawasans', \App\Http\Controllers\PengawasanController::class);

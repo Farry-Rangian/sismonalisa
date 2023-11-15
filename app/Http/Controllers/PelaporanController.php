@@ -36,6 +36,28 @@ class PelaporanController extends Controller
         //render view with posts
         return view('pelaporans.index', compact('pelaporans'));
     }
+    
+    public function getDataBySemester($semester)
+    {
+        // Ambil data berdasarkan semester (1 atau 2)
+        $pelaporans = Pelaporan::whereRaw("MONTH(tanggal) " . ($semester == 1 ? "BETWEEN 1 AND 6" : "BETWEEN 7 AND 12"))->get();
+
+        // Memeriksa peran pengguna
+        $user = Auth::user();
+        if ($user->role === 'admin') {
+            // Jika pengguna adalah admin, maka ambil semua data
+            $pelaporans = $pelaporans->merge(Pelaporan::where('datadesa_id', null)->get());
+        } else {
+            // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
+            $datadesa = $user->datadesa;
+            $pelaporans = $pelaporans->filter(function ($pelaporan) use ($datadesa) {
+                return $pelaporan->datadesa_id == $datadesa->id;
+            });
+        }
+
+        return view('pelaporans.index', compact('pelaporans', 'semester'));
+    }
+
     /**
      * create
      *
@@ -79,8 +101,17 @@ class PelaporanController extends Controller
             'datadesa_id' => $user->datadesa->id,
         ]);
 
-        //redirect to index
-        return redirect()->route('pelaporans.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        $bulan = date('m', strtotime($request->tanggal));
+
+        //jika bulan termasuk semester 1
+        if ($bulan >= 1 && $bulan <= 6) {
+            return redirect()->to('pelaporan/semester/1')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
+    
+        //jika bulan termasuk semester 2
+        else {
+            return redirect()->to('pelaporan/semester/2')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
     }
     /**
      * show
@@ -140,8 +171,17 @@ class PelaporanController extends Controller
             'tanggal'   => $request->tanggal,
         ]);
 
-        //redirect to index
-        return redirect()->route('pelaporans.index')->with(['success' => 'Data Berhasil Diubah!']);
+        $bulan = date('m', strtotime($request->tanggal));
+
+        //jika bulan termasuk semester 1
+        if ($bulan >= 1 && $bulan <= 6) {
+            return redirect()->to('pelaporan/semester/1')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
+    
+        //jika bulan termasuk semester 2
+        else {
+            return redirect()->to('pelaporan/semester/2')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
     }
     /**
      * destroy
@@ -157,7 +197,6 @@ class PelaporanController extends Controller
         //delete post
         $pelaporan->delete();
 
-        //redirect to index
-        return redirect()->route('pelaporans.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->back()->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

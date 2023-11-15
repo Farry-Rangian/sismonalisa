@@ -28,7 +28,7 @@
                                         <li><a href="{{route('data.semester', ['semester' => 1])}}">Realisasi Anggaran</a></li>
                                         <li><a href="{{route('program.semester', ['semester' => 1])}}">Realisasi Program</a></li>
                                         <li><a href="{{route('keuntungan.semester', ['semester' => 1])}}">Pemanfaatan Keuntungan</a></li>
-                                        <li><a href="email-inbox.html">Pelaporan</a></li>
+                                        <li><a href="{{route('pelaporan.semester', ['semester' => 1])}}">Pelaporan</a></li>
                                     </ul>
                                     </li>
                                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">2</a>
@@ -36,7 +36,7 @@
                                             <li><a href="{{route('data.semester', ['semester' => 2])}}">Realisasi Anggaran</a></li>
                                             <li><a href="{{route('program.semester', ['semester' => 2])}}">Realisasi Program</a></li>
                                             <li><a href="{{route('keuntungan.semester', ['semester' => 2])}}">Pemanfaatan Keuntungan</a></li>
-                                            <li><a href="email-inbox.html">Pelaporan</a></li>
+                                            <li><a href="{{route('pelaporan.semester', ['semester' => 2])}}">Pelaporan</a></li>
                                         </ul>
                                     </li>
                                 </ul>
