@@ -12,7 +12,7 @@
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
-                            <form action="{{ route('anggarans.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('realisasi-anggaran.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3 row">
                                     <label class="col-sm-3 col-form-label">ID Desa</label>

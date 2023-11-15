@@ -8,9 +8,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Data Desa</h4>
+                        <h4 class="card-title">Realisasi Anggaran</h4>
                         <button type="button" class="btn btn-rounded btn-primary">
-                            <a href="{{route('anggarans.create')}}" style="color: white;"><span class="btn-icon-start text-primary"><i class="fa fa-plus"></i></span>Tambah Data</a>
+                            <a href="{{route('realisasi-anggaran.create')}}" style="color: white;"><span class="btn-icon-start text-primary"><i class="fa fa-plus"></i></span>Tambah Data</a>
                         </button>
                     </div>
                     <div class="card-body">
@@ -40,9 +40,9 @@
                                         <td>{{$anggaran->keuntungan}}</td>
                                         <td>
                                             <div class="d-flex">
-                                                {{-- <a href="{{ route('anggarans.show', $anggaran->id) }}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-eye"></i></a> --}}
-                                                <a href="{{ route('anggarans.edit', $anggaran->id) }}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
-                                                <form action="{{ route('anggarans.destroy', $anggaran->id) }}" method="POST">
+                                                {{-- <a href="{{ route('realisasi-anggaran.show', $anggaran->id) }}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-eye"></i></a> --}}
+                                                <a href="{{ route('realisasi-anggaran.edit', $anggaran->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                <form action="{{ route('realisasi-anggaran.destroy', $anggaran->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Anda yakin ingin menghapus data ini?')"><i class="fa fa-trash"></i></button>
@@ -59,8 +59,8 @@
                                         <td>Rp.{{$anggaran->keuntungan}}</td>
                                         <td>
                                             <div class="d-flex">
-                                                <a href="{{ route('anggarans.edit', $anggaran->id) }}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
-                                                <form action="{{ route('anggarans.destroy', $anggaran->id) }}" method="POST">
+                                                <a href="{{ route('realisasi-anggaran.edit', $anggaran->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                <form action="{{ route('realisasi-anggaran.destroy', $anggaran->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Anda yakin ingin menghapus data ini?')"><i class="fa fa-trash"></i></button>

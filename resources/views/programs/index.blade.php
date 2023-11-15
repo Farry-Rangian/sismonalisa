@@ -1,191 +1,141 @@
-
 @extends('index')
 
 @section('content')
-<div class="card shadow-lg mx-4">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-12">
-        <div class="card mb-4">
-          <div class="card-header pb-0">
-            <h4>Data Realisasi Program Semester 1</h4>
-            <a href="programs/create" class="btn bg-gradient-success" role="button" aria-pressed="true">
-              Tambah Data
-            </a>
-          </div>
-          <div class="card-body px-0 pt-0 pb-2">
-            <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0">
-                <thead>
-                  <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Desa</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bulan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unit Usaha</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Penyewaan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Berjalan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Penjualan</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
-                  </tr>
-                </thead>
-                <tbody>
-  
-                  @forelse ($programs as $program)
-                    @php
-                      $bulan = date('n', strtotime($program->tanggal));
-                    @endphp
-                  
-                    @if ($bulan >= 1 && $bulan <= 6)
-                      <tr>
-                        <td>
-                          {{ $program->datadesa->nama_desa }}
-                        </td>
-                        <td>
-                          {{ date('F', strtotime($program->tanggal)) }}
-                        </td> 
-                        <td>
-                          {{ $program->usaha }}
-                        </td>                       
-                        <td>
-                          @if ($program->penyewaan == 1)
-                            Ya
-                          @else
-                            Tidak
-                          @endif
-                        </td>
-                        <td>
-                          @if ($program->berjalan == 1)
-                            Ya
-                          @else
-                            Tidak
-                          @endif
-                        </td>
-                        <td>
-                          @if ($program->penjualan == 1)
-                            Ya
-                          @else
-                            Tidak
-                          @endif
-                        </td>
-                        <td class="align-middle">
-                          <a href="{{ route('programs.show', $program->id) }}" class="btn bg-gradient-secondary" role="button" aria-pressed="true">
-                            Lihat
-                          </a>
-                          <a href="{{ route('programs.edit', $program->id) }}" class="btn bg-gradient-info" role="button" aria-pressed="true">
-                            Edit
-                          </a>
-                          <form action="{{ route('programs.destroy', $program->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn bg-gradient-danger" onclick="return confirm('Anda yakin ingin menghapus data ini?')">Hapus</button>
-                          </form>
-                        </td>
-                      </tr>
-                    @endif
-                    
-                  @empty
-                    <div class="alert alert-danger" role="alert">
-                      Data Realisasi Program untuk bulan Juli sampai Desember belum Tersedia
+<div class="content-body">
+    <div class="container-fluid">
+        <!-- row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Realisasi Program</h4>
+                        <button type="button" class="btn btn-rounded btn-primary">
+                            <a href="{{route('realisasi-program.create')}}" style="color: white;"><span class="btn-icon-start text-primary"><i class="fa fa-plus"></i></span>Tambah Data</a>
+                        </button>
                     </div>
-                  @endforelse
-
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <div class="col-12">
-        <div class="card mb-4">
-          <div class="card-header pb-0">
-            <h4>Data Realisasi Program Semester 2</h4>
-          </div>
-          <div class="card-body px-0 pt-0 pb-2">
-            <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0">
-                <thead>
-                  <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Desa</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bulan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unit Usaha</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Penyewaan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Berjalan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Penjualan</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
-                  </tr>
-                </thead>
-                <tbody>
-  
-                  @forelse ($programs as $program)
-                    @php
-                      $bulan = date('n', strtotime($program->tanggal));
-                    @endphp
-                  
-                    @if ($bulan >= 7 && $bulan <= 12)
-                      <tr>
-                        <td>
-                          {{ $program->datadesa->nama_desa }}
-                        </td>
-                        <td>
-                          {{ date('F', strtotime($program->tanggal)) }}
-                        </td> 
-                        <td>
-                          {{ $program->usaha }}
-                        </td>                       
-                        <td>
-                          @if ($program->penyewaan == 1)
-                            Ya
-                          @else
-                            Tidak
-                          @endif
-                        </td>
-                        <td>
-                          @if ($program->berjalan == 1)
-                            Ya
-                          @else
-                            Tidak
-                          @endif
-                        </td>
-                        <td>
-                          @if ($program->penjualan == 1)
-                            Ya
-                          @else
-                            Tidak
-                          @endif
-                        </td>
-                        <td class="align-middle">
-                          <a href="{{ route('programs.show', $program->id) }}" class="btn bg-gradient-secondary" role="button" aria-pressed="true">
-                            Lihat
-                          </a>
-                          <a href="{{ route('programs.edit', $program->id) }}" class="btn bg-gradient-info" role="button" aria-pressed="true">
-                            Edit
-                          </a>
-                          <form action="{{ route('programs.destroy', $program->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn bg-gradient-danger" onclick="return confirm('Anda yakin ingin menghapus data ini?')">Hapus</button>
-                          </form>
-                        </td>
-                      </tr>
-                    @endif
-                    
-                  @empty
-                    <div class="alert alert-danger" role="alert">
-                      Data Realisasi Program untuk bulan Juli sampai Desember belum Tersedia
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="exampler" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>Desa</th>
+                                        <th>Bulan</th>
+                                        <th>Unit Usaha</th>
+                                        <th>Penyewaan</th>
+                                        <th>Berjalan</th>
+                                        <th>Penjualan</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($programs as $program)
+                                    @php
+                                      $bulan = date('n', strtotime($program->tanggal));
+                                    @endphp
+                                    @if ($bulan >= 1 && $bulan <= 6)
+                                    <tr>
+                                        <td>
+                                            {{ $program->datadesa->nama_desa }}
+                                        </td>
+                                        <td>
+                                          {{ date('F', strtotime($program->tanggal)) }}
+                                        </td> 
+                                        <td>
+                                          {{ $program->usaha }}
+                                        </td>                       
+                                        <td>
+                                          @if ($program->penyewaan == 1)
+                                            Ya
+                                          @else
+                                            Tidak
+                                          @endif
+                                        </td>
+                                        <td>
+                                          @if ($program->berjalan == 1)
+                                            Ya
+                                          @else
+                                            Tidak
+                                          @endif
+                                        </td>
+                                        <td>
+                                          @if ($program->penjualan == 1)
+                                            Ya
+                                          @else
+                                            Tidak
+                                          @endif
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                {{-- <a href="{{ route('realisasi-program.show', $program->id) }}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-eye"></i></a> --}}
+                                                <a href="{{ route('realisasi-program.edit', $program->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                <form action="{{ route('realisasi-program.destroy', $program->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Anda yakin ingin menghapus data ini?')"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                            </div>												
+                                        </td>												
+                                    </tr>
+                                    @else
+                                    <tr>
+                                        <td>
+                                            {{ $program->datadesa->nama_desa }}
+                                        </td>
+                                        <td>
+                                          {{ date('F', strtotime($program->tanggal)) }}
+                                        </td> 
+                                        <td>
+                                          {{ $program->usaha }}
+                                        </td>                       
+                                        <td>
+                                          @if ($program->penyewaan == 1)
+                                            Ya
+                                          @else
+                                            Tidak
+                                          @endif
+                                        </td>
+                                        <td>
+                                          @if ($program->berjalan == 1)
+                                            Ya
+                                          @else
+                                            Tidak
+                                          @endif
+                                        </td>
+                                        <td>
+                                          @if ($program->penjualan == 1)
+                                            Ya
+                                          @else
+                                            Tidak
+                                          @endif
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="{{ route('realisasi-program.edit', $program->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                <form action="{{ route('realisasi-program.destroy', $program->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Anda yakin ingin menghapus data ini?')"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                            </div>												
+                                        </td>												
+                                    </tr>
+                                    @endif
+                                    
+                                    @empty
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        Data Realisasi program belum tersedia.
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                        </button>
+                                    </div>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                  @endforelse
-
-                </tbody>
-              </table>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
-
 @stop

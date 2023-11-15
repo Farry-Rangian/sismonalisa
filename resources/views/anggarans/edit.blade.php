@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
-                            <form action="{{ route('anggarans.update', $anggaran->id) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('realisasi-anggaran.update', $anggaran->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="mb-3 row">
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Tambah</button>
+                                        <button type="submit" class="btn btn-primary">Ubah</button>
                                     </div>
                                 </div>
                             </form>

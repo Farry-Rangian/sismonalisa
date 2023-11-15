@@ -24,15 +24,34 @@ class ProgramController extends Controller
         // Memeriksa peran pengguna
         if ($user->role === 'admin') {
             // Jika pengguna adalah admin, maka ambil semua data
-            $programs = Program::latest()->paginate(5);
+            $programs = Program::latest();
         } else {
             // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
             $datadesa = $user->datadesa;
             $programs = Program::where('datadesa_id', $datadesa->id)
-                ->latest()
-                ->paginate(5);
+                ->latest();
         }
         return view('programs.index', compact('programs'));
+    }
+    public function getDataBySemester($semester)
+    {
+        // Ambil data berdasarkan semester (1 atau 2)
+        $programs = Program::whereRaw("MONTH(tanggal) " . ($semester == 1 ? "BETWEEN 1 AND 6" : "BETWEEN 7 AND 12"))->get();
+
+        // Memeriksa peran pengguna
+        $user = Auth::user();
+        if ($user->role === 'admin') {
+            // Jika pengguna adalah admin, maka ambil semua data
+            $programs = $programs->merge(Program::where('datadesa_id', null)->get());
+        } else {
+            // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
+            $datadesa = $user->datadesa;
+            $programs = $programs->filter(function ($program) use ($datadesa) {
+                return $program->datadesa_id == $datadesa->id;
+            });
+        }
+
+        return view('programs.index', compact('programs', 'semester'));
     }
     /**
      * create
@@ -77,8 +96,17 @@ class ProgramController extends Controller
             'datadesa_id' => $user->datadesa->id,
         ]);
 
-        //redirect to index
-        return redirect()->route('programs.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        $bulan = date('m', strtotime($request->tanggal));
+
+        //jika bulan termasuk semester 1
+        if ($bulan >= 1 && $bulan <= 6) {
+            return redirect()->to('realisasi-program/semester/1')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
+    
+        //jika bulan termasuk semester 2
+        else {
+            return redirect()->to('realisasi-program/semester/2')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
     }
     /**
      * show
@@ -138,8 +166,17 @@ class ProgramController extends Controller
             'tanggal'   => $request->tanggal,
         ]);
 
-        //redirect to index
-        return redirect()->route('programs.index')->with(['success' => 'Data Berhasil Diubah!']);
+        $bulan = date('m', strtotime($request->tanggal));
+
+        //jika bulan termasuk semester 1
+        if ($bulan >= 1 && $bulan <= 6) {
+            return redirect()->to('realisasi-program/semester/1')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
+    
+        //jika bulan termasuk semester 2
+        else {
+            return redirect()->to('realisasi-program/semester/2')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
     }
     /**
      * destroy
@@ -155,7 +192,6 @@ class ProgramController extends Controller
         //delete post
         $program->delete();
 
-        //redirect to index
-        return redirect()->route('programs.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->back()->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

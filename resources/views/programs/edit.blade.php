@@ -1,68 +1,122 @@
 @extends('index')
 
 @section('content')
-<div class="card shadow-lg mx-4 ">
-    <div class="card-body">
-        <form action="{{ route('programs.update', $program->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-             @method('PUT')
-            <div class="form-group">
-                <label for="example-text-input" class="form-control-label">Unit Usaha</label>
-                <input type="text" class="form-control @error('usaha') is-invalid @enderror" name="usaha" value="{{ old('usaha', $program->usaha) }}" placeholder="Unit Usaha">
-                <!-- error message untuk usaha -->
-                @error('usaha')
-                <div class="alert alert-danger" role="alert">
-                    {{$message}}
+<div class="content-body">
+    <div class="container-fluid">
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-6 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Realisasi Program</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form action="{{ route('realisasi-program.update', $program->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 col-form-label">Unit Usaha</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="usaha" placeholder="usaha" value="{{ old('usaha', $program->usaha) }}">
+                                    </div>
+                                    @error('usaha')
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        {{$message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                        </button>
+                                    </div>
+                                    @enderror
+                                </div>
+                                
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 col-form-label">penyewaan</label>
+                                    <div class="col-sm-9">
+                                        <select name="penyewaan" class="default-select form-control wide mb-3">
+											<option value="0" @if(old('laporan_semester', $program->penyewaan) == 0) selected @endif>Tidak</option>
+											<option value="1" @if(old('laporan_semester', $program->penyewaan) == 1) selected @endif>Ya</option>
+										</select>
+                                    </div>
+                                    @error('penyewaan')
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        {{$message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                        </button>
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 col-form-label">Berjalan</label>
+                                    <div class="col-sm-9">
+                                        <select name="berjalan" class="default-select form-control wide mb-3">
+											<option value="0" @if(old('laporan_semester', $program->berjalan) == 0) selected @endif>Tidak</option>
+											<option value="1" @if(old('laporan_semester', $program->berjalan) == 1) selected @endif>Ya</option>
+										</select>
+                                    </div>
+                                    @error('berjalan')
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        {{$message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                        </button>
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 col-form-label">Penjualan</label>
+                                    <div class="col-sm-9">
+                                        <select name="penjualan" class="default-select form-control wide mb-3">
+											<option value="0" @if(old('laporan_semester', $program->penjualan) == 0) selected @endif>Tidak</option>
+											<option value="1" @if(old('laporan_semester', $program->penjualan) == 1) selected @endif>Ya</option>
+										</select>
+                                    </div>
+                                    @error('penjualan')
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        {{$message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                        </button>
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 col-form-label">tanggal</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" name="tanggal" placeholder="tanggal" value="{{ old('tanggal', $program->tanggal) }}">
+                                    </div>
+                                    @error('tanggal')
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        {{$message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                        </button>
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary">Tambah</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                @enderror
             </div>
-            <div class="form-group">
-                <label for="example-text-input" class="form-control-label">Penyewaan</label>
-                <select name="penyewaan" class="form-control form-control-sm">
-                    <option value="0" @if(old('penyewaan', $program->penyewaan) == 0) selected @endif>Tidak</option>
-                    <option value="1" @if(old('penyewaan', $program->penyewaan) == 1) selected @endif>Ya</option>
-                </select>
-                <!-- error message untuk modal -->
-                @error('penyewaan')
-                <div class="alert alert-danger" role="alert">
-                    {{$message}}
-                </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="example-text-input" class="form-control-label">Berjalan</label>
-                <select name="berjalan" class="form-control form-control-sm">
-                    <option value="0" @if(old('berjalan', $program->berjalan) == 0) selected @endif>Tidak</option>
-                    <option value="1" @if(old('berjalan', $program->berjalan) == 1) selected @endif>Ya</option>   
-                </select>
-                <!-- error message untuk modal -->
-                @error('berjalan')
-                <div class="alert alert-danger" role="alert">
-                    {{$message}}
-                </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="example-text-input" class="form-control-label">Penjualan</label>
-                <select name="penjualan" class="form-control form-control-sm">
-                    <option value="0" @if(old('penjualan', $program->penjualan) == 0) selected @endif>Tidak</option>
-                    <option value="1" @if(old('penjualan', $program->penjualan) == 1) selected @endif>Ya</option>
-                </select>
-                <!-- error message untuk modal -->
-                @error('penjualan')
-                <div class="alert alert-danger" role="alert">
-                    {{$message}}
-                </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="example-date-input" class="form-control-label">Tanggal</label>
-                <input class="form-control" type="date" name="tanggal" value="{{ old('tanggal', $program->tanggal) }}" id="example-date-input">
-            </div>
-            <button type="submit" class="btn btn-info">Update</button>
-        </form>
+        </div>
     </div>
-  </div>
+</div>
 
-
+<!-- Daterangepicker -->
+<script src="{{asset('js/plugins-init/bs-daterange-picker-init.js')}}"></script>
+<!-- Clockpicker init -->
+<script src="{{asset('js/plugins-init/clock-picker-init.js')}}"></script>
+<!-- asColorPicker init -->
+<script src="{{asset('js/plugins-init/jquery-asColorPicker.init.js')}}"></script>
+<!-- Material color picker init -->
+<script src="{{asset('js/plugins-init/material-date-picker-init.js')}}"></script>
+<!-- Pickdate -->
+<script src="{{asset('js/plugins-init/pickadate-init.js')}}"></script>
 @stop
