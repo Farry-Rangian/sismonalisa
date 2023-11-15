@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/pelaporan/semester/{semester}', [PelaporanController::class,'getDataBySemester'])->name('pelaporan.semester');
     Route::resource('/pembagian-laba', \App\Http\Controllers\PembagianController::class);
     Route::resource('/kesimpulan', \App\Http\Controllers\KesimpulanController::class);
-    Route::resource('/pengawasans', \App\Http\Controllers\PengawasanController::class);
+    Route::resource('/pengawasan-insidentil', \App\Http\Controllers\PengawasanController::class);
     Route::resource('/data-desa', \App\Http\Controllers\DatadesaController::class)->middleware('userAkses:admin');
     Route::get('/user', [AdminController::class, 'user'])->middleware('userAkses:user');
     Route::get('/logout', [SesiController::class, 'logout'])->name('logout');

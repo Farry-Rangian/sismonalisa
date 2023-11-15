@@ -56,7 +56,7 @@ class PengawasanController extends Controller
         ]);
 
         //redirect to index
-        return redirect()->route('pengawasans.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('pengawasan-insidentil.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
     /**
      * show
@@ -113,7 +113,7 @@ class PengawasanController extends Controller
         ]);
 
         //redirect to index
-        return redirect()->route('pengawasans.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('pengawasan-insidentil.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
     /**
      * destroy
@@ -130,6 +130,6 @@ class PengawasanController extends Controller
         $pengawasan->delete();
 
         //redirect to index
-        return redirect()->route('pengawasans.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->route('pengawasan-insidentil.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }
