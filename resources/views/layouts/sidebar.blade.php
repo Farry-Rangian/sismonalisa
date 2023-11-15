@@ -43,8 +43,8 @@
                             </li>
 							<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Tahunan</a>
                                 <ul aria-expanded="false">
-                                    <li><a href="ecom-product-grid.html">Pembagian Laba Tahunan</a></li>
-									<li><a href="ecom-product-list.html">Kesimpulan Tahunan</a></li>
+                                    <li><a href="{{route('pembagian-laba.index')}}">Pembagian Laba Tahunan</a></li>
+									<li><a href="{{route('kesimpulan.index')}}">Kesimpulan Tahunan</a></li>
                                 </ul>
                             </li>
                         </ul>

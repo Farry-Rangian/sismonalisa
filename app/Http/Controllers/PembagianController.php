@@ -58,7 +58,7 @@ class PembagianController extends Controller
         ]);
 
         //redirect to index
-        return redirect()->route('pembagians.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('pembagian-laba.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
     /**
      * show
@@ -117,7 +117,7 @@ class PembagianController extends Controller
         ]);
 
         //redirect to index
-        return redirect()->route('pembagians.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('pembagian-laba.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
     /**
      * destroy
@@ -134,6 +134,6 @@ class PembagianController extends Controller
         $pembagian->delete();
 
         //redirect to index
-        return redirect()->route('pembagians.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->route('pembagian-laba.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }
