@@ -16,6 +16,13 @@
                         </a>
                     </li> 
                     @endif
+                    @if (Auth::user()->role == 'admin')
+                    <li><a href="{{route('registers.index')}}" class="" aria-expanded="false">
+                            <i class="fas fa-user-check"></i>
+                            <span class="nav-text">Registrasi</span>
+                        </a>
+                    </li> 
+                    @endif
                     <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
 						<i class="fas fa-info-circle"></i>
 							<span class="nav-text">Pengawasan Rutin</span>

@@ -37,6 +37,7 @@ Route::get('/home', function(){
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/admin', [AdminController::class, 'index'])->middleware('userAkses:admin');
+    Route::resource('/registers', \App\Http\Controllers\RegisterController::class);
     Route::resource('/realisasi-anggaran', \App\Http\Controllers\AnggaranController::class);
     Route::get('/realisasi-anggaran/semester/{semester}', [AnggaranController::class,'getDataBySemester'])->name('data.semester');
     Route::resource('/realisasi-program', \App\Http\Controllers\ProgramController::class);
