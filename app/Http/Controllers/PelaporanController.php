@@ -24,13 +24,12 @@ class PelaporanController extends Controller
         // Memeriksa peran pengguna
         if ($user->role === 'admin') {
             // Jika pengguna adalah admin, maka ambil semua data
-            $pelaporans = Pelaporan::latest()->paginate(5);
+            $pelaporans = Pelaporan::latest();
         } else {
             // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
             $datadesa = $user->datadesa;
             $pelaporans = Pelaporan::where('datadesa_id', $datadesa->id)
-                ->latest()
-                ->paginate(5);
+                ->latest();
         }
 
         //render view with posts

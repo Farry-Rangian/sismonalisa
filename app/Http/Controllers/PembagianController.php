@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Pembagian;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class PembagianController extends Controller
@@ -17,8 +18,20 @@ class PembagianController extends Controller
      */
     public function index(): View
     {
-        //get pembagians
-        $pembagians = Pembagian::latest()->paginate(5);
+        // Mengambil pengguna yang saat ini login
+        $user = Auth::user();
+
+        // Memeriksa peran pengguna
+        if ($user->role === 'admin') {
+            // Jika pengguna adalah admin, maka ambil semua data
+            $pembagians = Pembagian::latest()->paginate(5);
+        } else {
+            // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
+            $datadesa = $user->datadesa;
+            $pembagians = Pembagian::where('datadesa_id', $datadesa->id)
+                ->latest()
+                ->paginate(5);
+        }
 
         //render view with posts
         return view('pembagians.index', compact('pembagians'));
@@ -30,7 +43,9 @@ class PembagianController extends Controller
      */
     public function create(): View
     {
-        return view('pembagians.create');
+        $user = Auth::user();
+        $datadesa_id = $user->datadesa->id;
+        return view('pembagians.create',compact('datadesa_id'));
     }
 
     /**
@@ -47,14 +62,19 @@ class PembagianController extends Controller
             'jumlah' => 'required|numeric',
             'persen' => 'required|numeric',
             'uraian' => 'required',
+            'datadesa_id' => 'required',
         ]);
 
+        // Mengambil pengguna yang sedang login
+        $user = Auth::user();
+        
         //create post
         Pembagian::create([
             'tujuan'     => $request->tujuan,
             'jumlah'     => $request->jumlah,
             'persen'   => $request->persen,
             'uraian'   => $request->uraian,
+            'datadesa_id' => $user->datadesa->id,
         ]);
 
         //redirect to index

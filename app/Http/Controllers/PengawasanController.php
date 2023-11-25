@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Pengawasan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class PengawasanController extends Controller
@@ -17,8 +18,19 @@ class PengawasanController extends Controller
      */
     public function index(): View
     {
-        //get pengawasans
-        $pengawasans = Pengawasan::latest()->paginate(5);
+        $user = Auth::user();
+
+        // Memeriksa peran pengguna
+        if ($user->role === 'admin') {
+            // Jika pengguna adalah admin, maka ambil semua data
+            $pengawasans = Pengawasan::latest()->paginate(5);
+        } else {
+            // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
+            $datadesa = $user->datadesa;
+            $pengawasans = Pengawasan::where('datadesa_id', $datadesa->id)
+                ->latest()
+                ->paginate(5);
+        }
 
         //render view with posts
         return view('pengawasans.index', compact('pengawasans'));
@@ -30,7 +42,9 @@ class PengawasanController extends Controller
      */
     public function create(): View
     {
-        return view('pengawasans.create');
+        $user = Auth::user();
+        $datadesa_id = $user->datadesa->id;
+        return view('pengawasans.create',compact('datadesa_id'));
     }
 
     /**
@@ -46,13 +60,17 @@ class PengawasanController extends Controller
             'objek' => 'required|min:5',
             'hasil' => 'required|min:5',
             'tindak' => 'required|min:5',
+            'datadesa_id' => 'required'
         ]);
+        // Mengambil pengguna yang sedang login
+        $user = Auth::user();
 
         //create post
         Pengawasan::create([
             'objek'     => $request->objek,
             'hasil'     => $request->hasil,
             'tindak'   => $request->tindak,
+            'datadesa_id' => $user->datadesa->id
         ]);
 
         //redirect to index

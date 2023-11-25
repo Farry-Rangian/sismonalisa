@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('pengawasans', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('datadesa_id');
             $table->string('objek');
             $table->string('hasil');
             $table->string('tindak');
             $table->timestamps();
+
+            $table->foreign('datadesa_id')->references('id')->on('datadesas')->onDelete('cascade');
         });
     }
 

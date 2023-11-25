@@ -10,6 +10,7 @@ class Kesimpulan extends Model
     use HasFactory;
 
     protected $fillable = [
+        'datadesa_id',
         'program',
         'anggaran'
     ];

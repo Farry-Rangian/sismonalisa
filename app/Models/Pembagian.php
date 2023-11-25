@@ -10,6 +10,7 @@ class Pembagian extends Model
     use HasFactory;
 
     protected $fillable = [
+        'datadesa_id',
         'tujuan',
         'jumlah',
         'persen',

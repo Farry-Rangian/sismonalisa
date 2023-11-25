@@ -14,7 +14,7 @@
                         <div class="basic-form">
                             <form action="{{ route('pembagian-laba.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                {{-- <div class="mb-3 row">
+                                <div class="mb-3 row">
                                     <label class="col-sm-3 col-form-label">ID Desa</label>
                                     <div class="col-sm-9">
                                         <input type="number" class="form-control" name="datadesa_id" value="{{$datadesa_id}}" readonly>
@@ -27,7 +27,7 @@
                                         </button>
                                     </div>
                                     @enderror
-                                </div> --}}
+                                </div>
                                 <div class="mb-3 row">
                                     <label class="col-sm-3 col-form-label">Tujuan</label>
                                     <div class="col-sm-9">

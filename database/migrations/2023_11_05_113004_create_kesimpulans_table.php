@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('kesimpulans', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('datadesa_id');
             $table->text('program');
             $table->text('anggaran');
             $table->timestamps();
+
+            $table->foreign('datadesa_id')->references('id')->on('datadesas')->onDelete('cascade');
         });
     }
 

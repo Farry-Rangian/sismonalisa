@@ -9,6 +9,7 @@ class Pengawasan extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'datadesa_id',
         'objek',
         'hasil',
         'tindak',

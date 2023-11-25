@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kesimpulan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class KesimpulanController extends Controller
@@ -17,8 +18,20 @@ class KesimpulanController extends Controller
          */
         public function index(): View
         {
-            //get kesimpulans
-            $kesimpulans = Kesimpulan::latest()->paginate(5);
+            // Mengambil pengguna yang saat ini login
+            $user = Auth::user();
+
+            // Memeriksa peran pengguna
+            if ($user->role === 'admin') {
+                // Jika pengguna adalah admin, maka ambil semua data
+                $kesimpulans = Kesimpulan::latest()->paginate(5);
+            } else {
+                // Jika pengguna bukan admin, ambil data terkait dengan datadesa pengguna
+                $datadesa = $user->datadesa;
+                $kesimpulans = Kesimpulan::where('datadesa_id', $datadesa->id)
+                    ->latest()
+                    ->paginate(5);
+            }
     
             //render view with posts
             return view('kesimpulans.index', compact('kesimpulans'));
@@ -30,7 +43,9 @@ class KesimpulanController extends Controller
          */
         public function create(): View
         {
-            return view('kesimpulans.create');
+            $user = Auth::user();
+            $datadesa_id = $user->datadesa->id;
+            return view('kesimpulans.create',compact('datadesa_id'));
         }
     
         /**
@@ -45,12 +60,15 @@ class KesimpulanController extends Controller
             $this->validate($request, [
                 'program' => 'required',
                 'anggaran' => 'required',
+                'datadesa_id' => 'required',
             ]);
     
+            $user = Auth::user();
             //create post
             Kesimpulan::create([
                 'program'     => $request->program,
                 'anggaran'     => $request->anggaran,
+                'datadesa_id' => $user->datadesa->id,
             ]);
     
             //redirect to index
