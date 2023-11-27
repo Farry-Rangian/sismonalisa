@@ -56,21 +56,6 @@ class RegisterController extends Controller
             $data['role'] = $request->role;
 
             User::create($data);
-
-            // $data = [
-            //     'email'     => $request->email,
-            //     'password'     => $request->password,
-            //     'role'     => $request->role,
-            // ];
-
-            // dd('setelah validasi');
-            // User::create([
-            //     'name' => $request->name,
-            //     'email' => $request->email,
-            //     'role' => $request->role,
-            //     'password' => bcrypt($request->password)
-            // ]);
-            // dd('setelah create');
     
             return redirect()->route('registers.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }
@@ -111,37 +96,34 @@ class RegisterController extends Controller
          */
         public function update(Request $request, $id): RedirectResponse
         {
-            $request->validate([
-                'name' => 'required|unique:users',
-                'email' => 'required|email|unique:users',
-                'password' => 'required|confirmed|min:6',
-                'role' => 'required',
-            ], [
-                'name.required' => 'Nama wajib diisi',
-                'name.unique' => 'Nama sudah digunakan',
-                'email.required' => 'Email wajib diisi',
-                'email.email' => 'Email tidak valid',
-                'email.unique' => 'Email sudah digunakan',
-                'password.required' => 'Password wajib diisi',
-                'password.confirmed' => 'Password tidak sama',
-                'password.min' => 'Password minimal 6 karakter',
-                'role.required' => 'role wajib diisi',
-            ]);
-    
-            //get post by ID
+            // Get the register to be updated
             $register = User::findOrFail($id);
-    
-            // Update the model with the new data
-            $register->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'role' => $request->role,
-                'password' => bcrypt($request->password)
+        
+            // Validate the request data
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email,' . $id,
+                'password' => 'nullable|min:6',
+                'role' => 'required',
             ]);
-    
-            //redirect to index
-            return redirect()->route('registers.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        
+            // Update the register data
+            $register->name = $request->name;
+            $register->email = $request->email;
+        
+            if ($request->has('password')) {
+                $register->password = Hash::make($request->password);
+            }
+        
+            $register->role = $request->role;
+        
+            // Save the updated register
+            $register->save();
+        
+            // Redirect back to the index page with a success message
+            return redirect()->route('registers.index')->with(['success' => 'Data Berhasil Diperbarui!']);
         }
+
         /**
          * destroy
          *
