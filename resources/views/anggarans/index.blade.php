@@ -9,9 +9,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Realisasi Anggaran</h4>
+                        @if (Auth::user()->role == 'user')
                         <button type="button" class="btn btn-rounded btn-primary">
                             <a href="{{route('realisasi-anggaran.create')}}" style="color: white;"><span class="btn-icon-start text-primary"><i class="fa fa-plus"></i></span>Tambah Data</a>
                         </button>
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -41,7 +43,9 @@
                                         <td>
                                             <div class="d-flex">
                                                 {{-- <a href="{{ route('realisasi-anggaran.show', $anggaran->id) }}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-eye"></i></a> --}}
+                                                @if (Auth::user()->role == 'user')
                                                 <a href="{{ route('realisasi-anggaran.edit', $anggaran->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                @endif
                                                 <form action="{{ route('realisasi-anggaran.destroy', $anggaran->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -59,7 +63,9 @@
                                         <td>Rp.{{$anggaran->keuntungan}}</td>
                                         <td>
                                             <div class="d-flex">
+                                                @if (Auth::user()->role == 'user')
                                                 <a href="{{ route('realisasi-anggaran.edit', $anggaran->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                @endif
                                                 <form action="{{ route('realisasi-anggaran.destroy', $anggaran->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
