@@ -9,9 +9,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Realisasi Program</h4>
+                        @if (Auth::user()->role == 'user')
                         <button type="button" class="btn btn-rounded btn-primary">
-                            <a href="{{route('realisasi-program.create')}}" style="color: white;"><span class="btn-icon-start text-primary"><i class="fa fa-plus"></i></span>Tambah Data</a>
+                          <a href="{{route('realisasi-program.create')}}" style="color: white;"><span class="btn-icon-start text-primary"><i class="fa fa-plus"></i></span>Tambah Data</a>
                         </button>
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -67,7 +69,9 @@
                                         <td>
                                             <div class="d-flex">
                                                 {{-- <a href="{{ route('realisasi-program.show', $program->id) }}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-eye"></i></a> --}}
+                                                @if (Auth::user()->role == 'user')
                                                 <a href="{{ route('realisasi-program.edit', $program->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                @endif
                                                 <form action="{{ route('realisasi-program.destroy', $program->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -110,7 +114,9 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <a href="{{ route('realisasi-program.edit', $program->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                              @if (Auth::user()->role == 'user')
+                                              <a href="{{ route('realisasi-program.edit', $program->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                              @endif
                                                 <form action="{{ route('realisasi-program.destroy', $program->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')

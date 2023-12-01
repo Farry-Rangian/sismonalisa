@@ -10,9 +10,12 @@
               <div class="card">
                   <div class="card-header">
                       <h4 class="card-title">Pembagian Laba Tahunan</h4>
+                      @if (Auth::user()->role == 'user')
                       <button type="button" class="btn btn-rounded btn-primary">
                           <a href="{{route('pembagian-laba.create')}}" style="color: white;"><span class="btn-icon-start text-primary"><i class="fa fa-plus"></i></span>Tambah Data</a>
                       </button>
+                      @endif
+                      
                   </div>
                   <div class="card-body">
                       <div class="table-responsive">
@@ -28,10 +31,6 @@
                               </thead>
                               <tbody>
                                   @forelse ($pembagians as $pembagian)
-                                  @php
-                                    $bulan = date('n', strtotime($pembagian->tanggal));
-                                  @endphp
-                                  @if ($bulan >= 1 && $bulan <= 6)
                                   <tr>
                                     <td>
                                       {{$pembagian->tujuan}}
@@ -48,7 +47,10 @@
                                       <td>
                                           <div class="d-flex">
                                               {{-- <a href="{{ route('pembagian-laba.show', $pembagian->id) }}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-eye"></i></a> --}}
+                                              @if (Auth::user()->role == 'user')
                                               <a href="{{ route('pembagian-laba.edit', $pembagian->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                              @endif
+                                              
                                               <form action="{{ route('pembagian-laba.destroy', $pembagian->id) }}" method="POST">
                                                   @csrf
                                                   @method('DELETE')
@@ -57,33 +59,6 @@
                                           </div>												
                                       </td>												
                                   </tr>
-                                  @else
-                                  <tr>
-                                    <td>
-                                      {{$pembagian->tujuan}}
-                                    </td>
-                                    <td>
-                                      Rp.{{$pembagian->jumlah}}
-                                    </td>
-                                    <td>
-                                      {{$pembagian->persen}}%
-                                    </td>
-                                    <td>
-                                      {{$pembagian->uraian}}
-                                    </td>
-                                      <td>
-                                          <div class="d-flex">
-                                              <a href="{{ route('pembagian-laba.edit', $pembagian->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
-                                              <form action="{{ route('pembagian-laba.destroy', $pembagian->id) }}" method="POST">
-                                                  @csrf
-                                                  @method('DELETE')
-                                                  <button type="submit" class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Anda yakin ingin menghapus data ini?')"><i class="fa fa-trash"></i></button>
-                                              </form>
-                                          </div>												
-                                      </td>												
-                                  </tr>
-                                  @endif
-                                  
                                   @empty
                                   <div class="alert alert-danger alert-dismissible fade show">
                                       <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>

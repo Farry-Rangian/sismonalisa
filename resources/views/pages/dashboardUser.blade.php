@@ -78,7 +78,7 @@
                               </svg>
                             </div>
                             <div class="ms-3">
-                              <h4 class="fs-24 font-w700 ">{{$programs->count()}}</h4>
+                              <h4 class="fs-24 font-w700 ">246</h4>
                               <span class="fs-16 font-w400 d-block">Jumlah program</span>
                             </div>
                           </div>

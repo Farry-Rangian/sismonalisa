@@ -10,9 +10,12 @@
               <div class="card">
                   <div class="card-header">
                       <h4 class="card-title">Pelaporan</h4>
+                      @if (Auth::user()->role == 'user')
                       <button type="button" class="btn btn-rounded btn-primary">
                           <a href="{{route('pelaporan.create')}}" style="color: white;"><span class="btn-icon-start text-primary"><i class="fa fa-plus"></i></span>Tambah Data</a>
                       </button>
+                      @endif
+                      
                   </div>
                   <div class="card-body">
                       <div class="table-responsive">
@@ -68,7 +71,10 @@
                                       <td>
                                           <div class="d-flex">
                                               {{-- <a href="{{ route('pelaporan.show', $pelaporan->id) }}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-eye"></i></a> --}}
+                                              @if (Auth::user()->role == 'user')
                                               <a href="{{ route('pelaporan.edit', $pelaporan->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                              @endif
+                                              
                                               <form action="{{ route('pelaporan.destroy', $pelaporan->id) }}" method="POST">
                                                   @csrf
                                                   @method('DELETE')
@@ -112,7 +118,10 @@
                                     </td>
                                       <td>
                                           <div class="d-flex">
+                                              @if (Auth::user()->role == 'user')
                                               <a href="{{ route('pelaporan.edit', $pelaporan->id) }}" class="btn btn-success shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                              @endif
+                                              
                                               <form action="{{ route('pelaporan.destroy', $pelaporan->id) }}" method="POST">
                                                   @csrf
                                                   @method('DELETE')

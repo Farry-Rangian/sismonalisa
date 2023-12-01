@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pengawasan;
+use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,17 +12,17 @@ class AdminController extends Controller
 {
     function index()
     {
-        // echo "Selamat Datang di Halaman Admin";
-        // echo "<h1>" . Auth::user()->name."</h1>";
-        // echo "<a href='logout'>Logout >></a>";
-        return view('pages.dashboard');
+        $programs = Program::all();
+        
+        return view('programs.index', compact('programs'));
     }
 
     function user()
     {
-        // echo "Selamat Datang Operator Desa";
-        // echo "<h1>" . Auth::user()->name."</h1>";
-        // echo "<a href='logout'>Logout >></a>";
-        return view('pages.dashboard');
+        //get pengawasans
+        $pengawasans = Pengawasan::latest()->paginate(5);
+
+        //render view with posts
+        return view('pengawasans.index', compact('pengawasans'));
     }
 }

@@ -4,11 +4,13 @@
         <div class="dlabnav">
             <div class="dlabnav-scroll">
 				<ul class="metismenu" id="menu">
-                    <li><a class="" href="javascript:void()" aria-expanded="false">
-							<i class="fas fa-home"></i>
-							<span class="nav-text">Dashboard</span>
-						</a>
+                    {{-- @if (Auth::user()->role == 'admin')
+                    <li><a class="" href="/" aria-expanded="false">
+                            <i class="fas fa-home"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
                     </li>
+                    @endif --}}
                     @if (Auth::user()->role == 'admin')
                     <li><a href="{{route('data-desa.index')}}" class="" aria-expanded="false">
                             <i class="fas fa-user-check"></i>
@@ -32,16 +34,16 @@
                                 <ul aria-expanded="false">
                                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">1</a>
                                     <ul aria-expanded="false">
-                                        <li><a href="{{route('data.semester', ['semester' => 1])}}">Realisasi Anggaran</a></li>
                                         <li><a href="{{route('program.semester', ['semester' => 1])}}">Realisasi Program</a></li>
+                                        <li><a href="{{route('data.semester', ['semester' => 1])}}">Realisasi Anggaran</a></li>
                                         <li><a href="{{route('keuntungan.semester', ['semester' => 1])}}">Pemanfaatan Keuntungan</a></li>
                                         <li><a href="{{route('pelaporan.semester', ['semester' => 1])}}">Pelaporan</a></li>
                                     </ul>
                                     </li>
                                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">2</a>
                                         <ul aria-expanded="false">
-                                            <li><a href="{{route('data.semester', ['semester' => 2])}}">Realisasi Anggaran</a></li>
                                             <li><a href="{{route('program.semester', ['semester' => 2])}}">Realisasi Program</a></li>
+                                            <li><a href="{{route('data.semester', ['semester' => 2])}}">Realisasi Anggaran</a></li>
                                             <li><a href="{{route('keuntungan.semester', ['semester' => 2])}}">Pemanfaatan Keuntungan</a></li>
                                             <li><a href="{{route('pelaporan.semester', ['semester' => 2])}}">Pelaporan</a></li>
                                         </ul>
